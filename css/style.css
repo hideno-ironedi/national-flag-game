@@ -1,0 +1,283 @@
+body{
+  background-color: tan;
+}
+
+.container {
+  max-width: 960px;
+  width: 100%;
+  padding: 25px;
+  margin: 0 auto;
+}
+
+.game-logo {
+  max-width: 500px;
+  width: 100%;
+  margin: 0 auto 10px;
+  background-color: #fff;
+}
+
+/*----------ラジオボタン----------------------------------------------*/
+.mode-select {
+  display: inline-flex;
+  flex-direction: column;
+  width: 150px;
+}
+
+.mode-select__label {
+  position: relative;
+
+  margin: 0.5em 0; /* 前後のスペース */
+  padding-left: 34px;
+  cursor: pointer;
+  user-select: none;
+}
+
+.mode-select__input {
+  opacity:0;
+  appearance: none;
+  outline: none;
+  position: absolute;
+  top: 0;
+  left: 0;
+}
+
+.radio-button {
+  position: absolute;
+  top: 0; /* 上からの位置 */
+  left: 0;
+  height: 22px; /* 大きさ */
+  width: 22px; /* 大きさ */
+  border: solid 2px #d4dae2; /* 線 */
+  border-radius: 50%;
+  box-sizing: border-box;
+  background-color: #fff;
+}
+
+.radio-button::after {
+  content: "";
+  position: absolute;
+  background: #2e80ff; /* 色 */
+  border-radius: 50%;
+  top: 2px;
+  bottom: 2px;
+  left: 2px;
+  right: 2px;
+  opacity: 0; /* 透明にしておく */
+}
+/* 選択時に重ねた円の透明を解除 */
+.mode-select__label .mode-select__input:checked + .radio-button:after {
+  opacity: 1;
+}
+
+.mode-select__input:focus + .radio-button {
+  box-shadow:0 0 5px 3px rgb(50, 50, 50);
+}
+
+
+/*----------スタート・リセットボタン----------------------------------------------*/
+.button-area {
+  margin-top: 10px;
+  display: inline-block;
+}
+
+.button {
+  cursor: pointer;
+  padding: 10px 20px 8px;
+  margin-left: 20px;
+  display: inline-block;
+  font-weight: bold;
+  line-height: 1;
+  border-radius: 5px;
+  border: 0;
+  background-color: #fff;
+  transition: background-color 0.3s;
+}
+
+.button:focus {
+  box-shadow:0 0 5px 3px rgb(50, 50, 50);
+}
+
+.button:hover {
+background-color: rgb(255, 166, 0);
+}
+
+.button:disabled:hover {
+  background-color: #fff;
+
+}
+
+/*----------得点表示----------------------------------------------*/
+.point {
+  display: none;
+}
+
+.point__body {
+  margin-left: 30px;
+}
+
+.point__title {
+  display: inline-block;
+  /* font-weight: bold; */
+  margin-right: 5px;
+
+}
+
+.point__item {
+  font-size: 28px;
+  font-weight: bold;
+}
+
+/*----------カード----------------------------------------------*/
+.cards {
+  width: 100%;
+  margin-top: 40px;
+}
+
+.grid-5 {
+  display: grid; /*子要素をタイル状に並べる*/
+  grid-template-columns: repeat(5, 1fr); /*5列に並べる*/
+  gap: 10px 10px; /*行間 列間*/
+}
+
+.grid-10 {
+  display: grid; /*子要素をタイル状に並べる*/
+  grid-template-columns: repeat(10, 1fr); /*10列に並べる*/
+  gap: 10px 10px; /*行間 列間*/
+}
+
+.front {
+  aspect-ratio: 686 / 1052;
+  border: 1px solid #000;
+  background-size:contain;
+  background-repeat: no-repeat;
+  background-color: #fff;
+  border-radius: 10px;
+}
+
+.back {
+  background-image: url(./../images/ura.svg) !important;
+  background-size:contain;
+  background-repeat: no-repeat;
+  background-color: #fff;
+  border-radius: 10px;
+  cursor: pointer;
+}
+
+.back:hover {
+  border: 3px solid red;
+}
+
+.lock {
+  pointer-events: none;
+}
+
+.pair {
+  cursor: default;
+}
+
+/*----------スライド----------------------------------------------*/
+.modal {
+  width: 100vw;
+  height: 100vh;
+  position: fixed;
+  top: 0;
+  left: 0;
+  display: none;
+}
+
+@keyframes fadeout {
+  40% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
+  }
+}
+.fadeout {
+  /*使用するアニメーション名*/
+  animation-name:fadeout;
+  /*アニメーション時間*/
+  animation-duration:2s;
+  /*アニメーション終了時の挙動*/
+  animation-fill-mode:forwards;
+  pointer-events: none;
+}
+
+@keyframes slide {
+  0% {
+    opacity: 0;
+    transform: translateX(50%);
+
+  }
+  40% {
+    opacity: 1;
+    transform: translateX(-50%);
+
+  }
+  80% {
+    opacity: 1;
+    transform: translateX(-50%);
+
+  }
+  100% {
+    opacity: 0;
+    transform: translateX(-50%);
+
+  }
+}
+.slide {
+  /*使用するアニメーション名*/
+  animation-name:slide;
+  /*アニメーション時間*/
+  animation-duration:4s;
+  /*アニメーション終了時の挙動*/
+  animation-fill-mode:forwards;
+  /* pointer-events: none; */
+}
+
+.pair-complete {
+  width: 30%;
+  margin: auto;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translateY(-50%);
+  z-index: 50;
+}
+
+/*----------クリア画面----------------------------------------------*/
+.game-clear {
+  z-index: 100;
+  display: none;
+}
+
+.game-clear__body {
+  background-color: rgba(0, 0, 0, 0.9);
+  width: 80%;
+  padding: 40px;
+  margin: auto;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+.game-clear__heading {
+  font-size: 56px;
+  color: #fff;
+}
+.game-clear__text {
+  font-size: 24px;
+  color: #fff;
+  margin-top: 10px;
+}
+
+.game-clear__time {
+  font-size: 24px;
+  color: #fff;
+  margin-top: 10px;
+}

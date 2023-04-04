@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="ja">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>国旗神経衰弱ゲーム</title>
+  <meta name="description" content="国旗を使用した神経衰弱ゲームです">
+  <meta name="robots" content="noindex">
+  <link rel="stylesheet" href="./css/reset.css">
+  <link rel="stylesheet" href="./css/style.css">
+  <script src="./js/script.js"></script>
+
+<body>
+  <div class="container">
+
+    <!-- ロゴ -->
+    <h1 id="js-game-logo" class="game-logo"><img src="./images/game-logo.png" alt="国旗神経衰弱ゲーム"></h1>
+
+    <!-- モードセレクト -->
+    <div class="mode-select">
+      <label id="level1" class="mode-select__label"><input class="mode-select__input" id="easy" type="radio" name="difficulty"
+          value="easy" checked tabIndex="1"><span class="radio-button"></span>やさしい</label>
+      <label id="level2" class="mode-select__label"><input class="mode-select__input" id="normal" type="radio" name="difficulty"
+          value="normal"><span class="radio-button"></span>ふつう</label>
+      <label id="level3" class="mode-select__label"><input class="mode-select__input" id="hard" type="radio" name="difficulty"
+          value="hard"><span class="radio-button"></span>むずかしい</label>
+      <label id="level4" class="mode-select__label"><input class="mode-select__input" id="very-hard" type="radio" name="difficulty"
+          value="very-hard"><span class="radio-button"></span>激ムズ</label>
+    </div>
+
+    <!-- スタートボタン -->
+    <div class="button-area">
+      <input id="js-game-start" class="button" type="button" value="スタート" tabindex="2">
+      <input id="js-game-reset" class="button" type="button" value="リセット" tabindex="3">
+    </div>
+
+    <!-- 得点表示 -->
+    <div id="js-point" class="point">
+      <div class="point__body">
+        <p class="point__title">完成ペア数</p>
+        <span id="js-point-count" class="point__item"></span>
+        <span class="point__item">/</span>
+        <span id="js-point-level" class="point__item"></span>
+      </div>
+    </div>
+
+    <!-- カード表示 初期値は空-->
+    <div id="js-cards" class="cards">
+    </div>
+
+    <!-- クリア画面 -->
+    <div id="js-game-clear" class="game-clear">
+      <div class="game-clear__body">
+        <p class="game-clear__heading">GAME CLEAR</p>
+        <p class="game-clear__text">あなたのクリアタイム</p>
+        <p id="js-clear-time" class="game-clear__time"></p>
+      </div>
+    </div>
+
+    <!-- モーダル表示-->
+    <div id="js-modal" class="modal">
+      <div id="js-pair-complete" class="pair-complete">
+      </div>
+    </div>
+
+  </div>
+</body>
+
+</html>

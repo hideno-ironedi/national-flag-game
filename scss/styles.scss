@@ -1,0 +1,142 @@
+// 数値のみを取り出す
+// 参照：https://css-tricks.com/snippets/sass/strip-unit-function/
+@function strip-unit($number) {
+  @if type-of($number) == "number" and not unitless($number) {
+    @return math.div($number, $number * 0 + 1);
+  }
+  @return $number;
+}
+
+
+@function vw($window_width, $size) {
+	@return math.div($size, $window_width) * 100vw;
+}
+
+
+////////////////////
+// インナー幅設定
+////////////////////
+// コンテンツのインナー幅（最も共通の幅が多い部分）
+$inner: 1100px;
+// ※キャンパス幅ではなくインナーの幅を指す
+
+// 余白
+$padding-pc: 25px;
+$padding-sp: 20px;
+// ※PC時：デザインカンプの余白の幅ではない。PC時は通常25pxで大丈夫！
+
+
+////////////////////
+// フォント設定
+////////////////////
+
+// $base-font-family: "";
+// $second-font-family: "";
+// ※検証ツールでしっかり反映されているか確認する
+
+body {
+  // font-family: $base-font-family;
+}
+
+// フォントウェイト
+$regular: 300;
+$normal: 400;
+$bold: 700;
+
+////////////////////
+// 色の指定
+////////////////////
+
+//色指定（共通性のあるものは出来る限り指定すると良い）
+$black: #111;
+$white: #fff;
+
+body {
+  color: #111;
+  background-color: #fff;
+}
+
+////////////////////
+// メディアクエリとブレークポイントの設定
+////////////////////
+
+//ブレイクポイント
+$breakpoints: (
+  // sm: 600,
+  md: 768,
+  // lg: 1024,
+  // xl: 1440,
+);
+
+
+//メディアクエリー
+$mediaquerys: (
+  sm: "screen and (min-width: #{map-get($breakpoints,'sm')}px)",
+  md: "screen and (min-width: #{map-get($breakpoints,'md')}px)",
+  lg: "screen and (min-width: #{map-get($breakpoints,'lg')}px)",
+  xl: "screen and (min-width: #{map-get($breakpoints,'xl')}px)",
+);
+
+// @include mq(){}で書くとブレークポイントが反映される（初期値はmd）
+@mixin mq($mediaquery: md) {
+  @media #{map-get($mediaquerys, $mediaquery)} {
+    @content;
+  }
+}
+
+// remへの計算式（16pxを基準としている。10pxを基準とする場合は16を10に変更する）
+@function rem($pixels) {
+  @return math.div($pixels, 16) * 1rem;
+}
+
+
+////////////////////
+// 非表示設定
+////////////////////
+
+//768px以上を表示
+.u-desktop {
+  display: none;
+  @include mq("md") {
+    display: block;
+  }
+}
+
+//モバイルのみ表示
+.u-mobile {
+  @include mq("md") {
+    display: none;
+  }
+}
+
+html {
+  //~375px
+  @media (max-width: 375px) {
+    font-size: vw(375, 16);
+  }
+
+  //375px~787px
+  font-size: 16px;
+
+  @include mq("md") {
+    font-size: vw(strip-unit($inner), 16);
+  }
+
+  //inner~max-screen
+  @media (min-width: $inner) {
+    font-size: 16px;
+  }
+}
+
+.inner {
+  width: 100%;
+  padding-right: $padding-sp;
+  padding-left: $padding-sp;
+  margin-right: auto;
+  margin-left: auto;
+  @include mq("md") {
+    max-width: $inner + strip-unit($padding-pc) * 2;
+    padding-right: $padding-pc;
+    padding-left: $padding-pc;
+  }
+}
