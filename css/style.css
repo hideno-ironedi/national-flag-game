@@ -229,7 +229,7 @@ background-color: rgb(255, 166, 0);
   /*使用するアニメーション名*/
   animation-name:slide;
   /*アニメーション時間*/
-  animation-duration:4s;
+  animation-duration:3s;
   /*アニメーション終了時の挙動*/
   animation-fill-mode:forwards;
   /* pointer-events: none; */
